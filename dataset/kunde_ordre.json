@@ -1,0 +1,16 @@
+{
+	"name": "kunde_ordre",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_msy01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "kunde_ordre"
+		}
+	}
+}
