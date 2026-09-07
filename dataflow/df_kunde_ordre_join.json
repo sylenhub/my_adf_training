@@ -77,7 +77,6 @@
 				"          navn,",
 				"          epost,",
 				"          ordre_id,",
-				"          kunde_id = source2@kunde_id,",
 				"          dato,",
 				"          belop",
 				"     )) ~> sink1"
