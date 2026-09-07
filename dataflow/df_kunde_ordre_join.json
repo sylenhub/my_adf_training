@@ -56,7 +56,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> source2",
-				"source1, filter1 join(source1@kunde_id == source2@kunde_id,",
+				"source2, filter1 join(source1@kunde_id == source2@kunde_id,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
