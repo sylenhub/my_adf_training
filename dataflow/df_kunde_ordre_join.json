@@ -61,7 +61,7 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join1",
-				"source2 filter( 1 == 1) ~> filter1",
+				"source1 filter(1 == 1) ~> filter1",
 				"join1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
@@ -71,7 +71,16 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          kunde_id = source1@kunde_id,",
+				"          navn,",
+				"          epost,",
+				"          ordre_id,",
+				"          kunde_id = source2@kunde_id,",
+				"          dato,",
+				"          belop",
+				"     )) ~> sink1"
 			]
 		}
 	}
