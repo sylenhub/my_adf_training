@@ -106,6 +106,27 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/kunde_ordre')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase_msy01",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "kunde_ordre"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_msy01')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/minFil1MSY')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -160,6 +181,28 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/MSYStorageAccount01')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ordre')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "adf",
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase_msy01",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "ordre"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_msy01')]"
 			]
 		},
 		{
@@ -245,6 +288,9 @@
 					"transformations": [
 						{
 							"name": "join1"
+						},
+						{
+							"name": "filter1"
 						}
 					],
 					"scriptLines": [
@@ -267,11 +313,12 @@
 						"     validateSchema: false,",
 						"     isolationLevel: 'READ_UNCOMMITTED',",
 						"     format: 'table') ~> source2",
-						"source1, source2 join(source1@kunde_id == source2@kunde_id,",
+						"source2, filter1 join(source1@kunde_id == source2@kunde_id,",
 						"     joinType:'inner',",
 						"     matchType:'exact',",
 						"     ignoreSpaces: false,",
 						"     broadcast: 'auto')~> join1",
+						"source1 filter(1 == 1) ~> filter1",
 						"join1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     deletable:false,",
@@ -281,7 +328,15 @@
 						"     format: 'table',",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          kunde_id = source1@kunde_id,",
+						"          navn,",
+						"          epost,",
+						"          ordre_id,",
+						"          dato,",
+						"          belop",
+						"     )) ~> sink1"
 					]
 				}
 			},
@@ -289,49 +344,6 @@
 				"[concat(variables('factoryId'), '/datasets/Kunde')]",
 				"[concat(variables('factoryId'), '/datasets/ordre')]",
 				"[concat(variables('factoryId'), '/datasets/kunde_ordre')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ordre')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "adf",
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase_msy01",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "ordre"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_msy01')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/kunde_ordre')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase_msy01",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "kunde_ordre"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_msy01')]"
 			]
 		}
 	]
