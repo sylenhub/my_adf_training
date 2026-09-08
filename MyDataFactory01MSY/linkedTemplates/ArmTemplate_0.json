@@ -242,7 +242,7 @@
 							"name": "join1"
 						},
 						{
-							"name": "filter1"
+							"name": "filterX"
 						}
 					],
 					"scriptLines": [
@@ -265,12 +265,12 @@
 						"     validateSchema: false,",
 						"     isolationLevel: 'READ_UNCOMMITTED',",
 						"     format: 'table') ~> source2",
-						"source2, filter1 join(source1@kunde_id == source2@kunde_id,",
+						"filterX, source2 join(source1@kunde_id == source2@kunde_id,",
 						"     joinType:'inner',",
 						"     matchType:'exact',",
 						"     ignoreSpaces: false,",
 						"     broadcast: 'auto')~> join1",
-						"source1 filter(1 == 1) ~> filter1",
+						"source1 filter(1 == 1) ~> filterX",
 						"join1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     deletable:false,",
