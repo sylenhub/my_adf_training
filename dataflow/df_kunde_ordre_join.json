@@ -69,16 +69,10 @@
 				"     updateable:false,",
 				"     upsertable:false,",
 				"     format: 'table',",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
 				"          kunde_id = source1@kunde_id,",
-				"          navn,",
-				"          epost,",
-				"          ordre_id,",
-				"          dato,",
-				"          belop",
+				"          ordre_id = source2@ordre_id",
 				"     )) ~> sink1"
 			]
 		}
