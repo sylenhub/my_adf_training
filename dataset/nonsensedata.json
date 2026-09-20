@@ -1,0 +1,32 @@
+{
+	"name": "nonsensedata",
+	"properties": {
+		"description": "bare tull og tøys",
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_msy01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "tekst1",
+				"type": "varchar"
+			},
+			{
+				"name": "tekst2",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "nonsenseData"
+		}
+	}
+}
