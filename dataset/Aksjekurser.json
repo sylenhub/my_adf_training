@@ -1,12 +1,12 @@
 {
-	"name": "FilAksjekurser",
+	"name": "Aksjekurser",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase_msy01",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "Source"
+			"name": "Sink"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
