@@ -139,6 +139,9 @@
 					"referenceName": "AzureSqlDatabase_msy01",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Sink"
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [],
@@ -160,6 +163,9 @@
 					"referenceName": "AzureSqlDatabase_msy01",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Sink"
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [],
@@ -180,6 +186,9 @@
 				"linkedServiceName": {
 					"referenceName": "MSYStorageAccount01",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Source"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -210,6 +219,9 @@
 					"referenceName": "MSYStorageAccount01",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Source"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -238,6 +250,9 @@
 				"linkedServiceName": {
 					"referenceName": "AzureSqlDatabase_msy01",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Sink"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
@@ -275,6 +290,9 @@
 				"linkedServiceName": {
 					"referenceName": "AzureSqlDatabase_msy01",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Sink"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
@@ -510,6 +528,30 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/MSYStorageAccount01')]",
 				"[concat(variables('factoryId'), '/datasets/nonsensedata')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FiAksjekurser')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase_msy01",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Source"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Aksjekurser"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_msy01')]"
 			]
 		}
 	]
