@@ -5,6 +5,9 @@
 			"referenceName": "AzureSqlDatabase_msy01",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Sink"
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [],
