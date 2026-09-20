@@ -6,9 +6,9 @@
 		"type": "AmazonS3",
 		"typeProperties": {
 			"serviceUrl": "https://s3.amazonaws.com",
-			"accessKeyId": "Access_linked2",
+			"accessKeyId": "test123",
 			"authenticationType": "AccessKey",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEE5RDBCMzYwLUE3NEUtNDdCNi1BMDcxLTJBMkE4OEYxOUM1RV85MGZlMjc5ZC1iZDFlLTQ1MmEtODc3Yy02NGFkMWI4OGMzZDYiDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEE5RDBCMzYwLUE3NEUtNDdCNi1BMDcxLTJBMkE4OEYxOUM1RV8zMmJkY2Y4OS03NTk3LTRlNTMtYjA5Yi1iOWI3NmQyN2NiMmIiDQp9"
 		}
 	}
 }
