@@ -1,0 +1,19 @@
+{
+	"name": "Aksjekurser",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_msy01",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Source"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Aksjekurser"
+		}
+	}
+}
