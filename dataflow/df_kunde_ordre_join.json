@@ -72,7 +72,7 @@
 				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
 				"          kunde_id = source1@kunde_id,",
-				"          ordre_id = source2@ordre_id",
+				"          ordre_id",
 				"     )) ~> sink1"
 			]
 		}
