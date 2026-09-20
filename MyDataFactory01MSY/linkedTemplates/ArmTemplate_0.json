@@ -378,7 +378,7 @@
 						"     format: 'delimited',",
 						"     container: 'adftutorialmsy02',",
 						"     folderPath: 'input',",
-						"     fileName: 'testfil_01.cvs',",
+						"     fileName: 'testfil_01.csv',",
 						"     columnDelimiter: ';',",
 						"     escapeChar: '\\\\',",
 						"     quoteChar: '\\\"',",
