@@ -465,7 +465,12 @@
 						}
 					],
 					"scriptLines": [
-						"source(useSchema: false,",
+						"source(output(",
+						"          nr as short,",
+						"          tekst1 as string,",
+						"          tekst2 as string",
+						"     ),",
+						"     useSchema: false,",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     ignoreNoFilesFound: false,",
@@ -476,7 +481,7 @@
 						"     columnDelimiter: ';',",
 						"     escapeChar: '\\\\',",
 						"     quoteChar: '\\\"',",
-						"     columnNamesAsHeader: false) ~> source1",
+						"     columnNamesAsHeader: true) ~> source1",
 						"source1 select(skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true) ~> select1",
 						"select1 sink(allowSchemaDrift: true,",
@@ -493,7 +498,12 @@
 						"     format: 'table',",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          id = nr,",
+						"          tekst1,",
+						"          tekst2",
+						"     )) ~> sink1"
 					]
 				}
 			},
