@@ -1,6 +1,9 @@
 {
 	"name": "MyDataFactory01MSY",
 	"properties": {
+		"globalConfigurations": {
+			"PipelineBillingEnabled": "false"
+		},
 		"trustModeClaimForMi": {
 			"value": "Disabled",
 			"editable": true
