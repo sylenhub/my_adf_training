@@ -5,6 +5,9 @@
 			"referenceName": "AzureSqlDatabase_msy01",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "tidreg/Source"
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
