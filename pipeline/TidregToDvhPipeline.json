@@ -1,5 +1,5 @@
 {
-	"name": "myPipeline01MSY",
+	"name": "TidregToDvhPipeline",
 	"properties": {
 		"activities": [
 			{
@@ -27,6 +27,9 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "tidreg"
+		},
 		"annotations": [],
 		"lastPublishTime": "2026-09-03T17:37:25Z"
 	},
