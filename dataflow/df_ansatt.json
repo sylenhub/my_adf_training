@@ -15,7 +15,15 @@
 					"name": "STGansatt"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Ansatt",
+						"type": "DatasetReference"
+					},
+					"name": "DVHansatt"
+				}
+			],
 			"transformations": [
 				{
 					"name": "derivedColumn1"
@@ -43,7 +51,35 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> STGansatt",
-				"STGansatt derive() ~> derivedColumn1"
+				"STGansatt derive() ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ansatt_id as integer,",
+				"          ansattnr as string,",
+				"          fornavn as string,",
+				"          etternavn as string,",
+				"          epost as string,",
+				"          stillingstittel as string,",
+				"          stillingsprosent as decimal(5,2),",
+				"          ansatt_dato as date,",
+				"          slutt_dato as date,",
+				"          naermeste_leder_id as integer,",
+				"          opprettet_tid as timestamp,",
+				"          endret_tid as timestamp,",
+				"          endret_av as string,",
+				"          stg_load_ts as timestamp,",
+				"          source_file as string,",
+				"          dvh_load_ts as timestamp",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> DVHansatt"
 			]
 		}
 	}
