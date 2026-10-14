@@ -1,0 +1,39 @@
+{
+	"name": "df_dvh_aktivitet",
+	"properties": {
+		"description": "read from stg to dvh integration",
+		"folder": {
+			"name": "tidreg/data flows"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_aktivitet",
+						"type": "DatasetReference"
+					},
+					"name": "aktivitet"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          aktivitet_id as string,",
+				"          prosjekt_id as string,",
+				"          aktivitetskode as string,",
+				"          aktivitetsnavn as string,",
+				"          aktiv as string,",
+				"          opprettet_tid as string,",
+				"          load_ts as timestamp,",
+				"          source_file as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> aktivitet"
+			]
+		}
+	}
+}
