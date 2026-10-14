@@ -11,7 +11,7 @@
 			}
 		},
 		"folder": {
-			"name": "tidreg"
+			"name": "tidreg/Tidreg_files"
 		},
 		"annotations": [],
 		"type": "DelimitedText",

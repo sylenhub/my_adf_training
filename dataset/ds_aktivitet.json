@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "tidreg/Source"
+			"name": "tidreg/Tidreg_files"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
