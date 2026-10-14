@@ -1,0 +1,92 @@
+{
+	"name": "Ansatt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_msy01",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "tidreg/Sink"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ansatt_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ansattnr",
+				"type": "nvarchar"
+			},
+			{
+				"name": "fornavn",
+				"type": "nvarchar"
+			},
+			{
+				"name": "etternavn",
+				"type": "nvarchar"
+			},
+			{
+				"name": "epost",
+				"type": "nvarchar"
+			},
+			{
+				"name": "stillingstittel",
+				"type": "nvarchar"
+			},
+			{
+				"name": "stillingsprosent",
+				"type": "decimal",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "ansatt_dato",
+				"type": "date"
+			},
+			{
+				"name": "slutt_dato",
+				"type": "date"
+			},
+			{
+				"name": "naermeste_leder_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "opprettet_tid",
+				"type": "datetime2",
+				"scale": 0
+			},
+			{
+				"name": "endret_tid",
+				"type": "datetime2",
+				"scale": 0
+			},
+			{
+				"name": "endret_av",
+				"type": "nvarchar"
+			},
+			{
+				"name": "stg_load_ts",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "source_file",
+				"type": "nvarchar"
+			},
+			{
+				"name": "dvh_load_ts",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "dvh",
+			"table": "ansatt"
+		}
+	}
+}
