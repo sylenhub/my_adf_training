@@ -9,7 +9,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "ansatt",
+						"referenceName": "ds_ansatt",
 						"type": "DatasetReference"
 					},
 					"name": "STGansatt"
