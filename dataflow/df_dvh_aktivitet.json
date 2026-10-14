@@ -3,7 +3,7 @@
 	"properties": {
 		"description": "read from stg to dvh integration",
 		"folder": {
-			"name": "tidreg/data flows"
+			"name": "tidreg"
 		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
