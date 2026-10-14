@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Data flow1",
+				"name": "df_dvh_aktivitet",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "df_kunde_ordre_join",
+						"referenceName": "df_dvh_aktivitet",
 						"type": "DataFlowReference"
 					},
 					"compute": {
