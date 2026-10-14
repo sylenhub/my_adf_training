@@ -13,11 +13,24 @@
 						"referenceName": "ds_aktivitet",
 						"type": "DatasetReference"
 					},
-					"name": "aktivitet"
+					"name": "STGaktivitet"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Aktivitet",
+						"type": "DatasetReference"
+					},
+					"name": "DVHaktivitet",
+					"description": "aktivitet"
+				}
+			],
+			"transformations": [
+				{
+					"name": "EXP"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          aktivitet_id as string,",
@@ -32,7 +45,31 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> aktivitet"
+				"     format: 'table') ~> STGaktivitet",
+				"STGaktivitet derive(aktivitetsnavn = upper(aktivitetsnavn),",
+				"          aktivitet_id = toInteger(aktivitet_id),",
+				"          prosjekt_id = toInteger(prosjekt_id),",
+				"          aktiv = iif(aktiv == 'J', true(), false())) ~> EXP",
+				"EXP sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          aktivitet_id,",
+				"          prosjekt_id,",
+				"          aktivitetskode,",
+				"          aktivitetsnavn,",
+				"          aktiv,",
+				"          opprettet_tid,",
+				"          stg_load_ts = load_ts,",
+				"          source_file",
+				"     )) ~> DVHaktivitet"
 			]
 		}
 	}
