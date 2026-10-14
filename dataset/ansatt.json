@@ -1,0 +1,81 @@
+{
+	"name": "ansatt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_msy01",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "tidreg/Source"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ansatt_id",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ansattnr",
+				"type": "nvarchar"
+			},
+			{
+				"name": "fornavn",
+				"type": "nvarchar"
+			},
+			{
+				"name": "etternavn",
+				"type": "nvarchar"
+			},
+			{
+				"name": "epost",
+				"type": "nvarchar"
+			},
+			{
+				"name": "stillingstittel",
+				"type": "nvarchar"
+			},
+			{
+				"name": "stillingsprosent",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ansatt_dato",
+				"type": "nvarchar"
+			},
+			{
+				"name": "slutt_dato",
+				"type": "nvarchar"
+			},
+			{
+				"name": "naermeste_leder_id",
+				"type": "nvarchar"
+			},
+			{
+				"name": "opprettet_tid",
+				"type": "nvarchar"
+			},
+			{
+				"name": "endret_tid",
+				"type": "nvarchar"
+			},
+			{
+				"name": "endret_av",
+				"type": "nvarchar"
+			},
+			{
+				"name": "load_ts",
+				"type": "datetime2",
+				"scale": 0
+			},
+			{
+				"name": "source_file",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "ansatt"
+		}
+	}
+}

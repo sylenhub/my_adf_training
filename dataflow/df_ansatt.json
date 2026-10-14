@@ -1,0 +1,45 @@
+{
+	"name": "df_ansatt",
+	"properties": {
+		"folder": {
+			"name": "tidreg"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ansatt",
+						"type": "DatasetReference"
+					},
+					"name": "STGansatt"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          ansatt_id as string,",
+				"          ansattnr as string,",
+				"          fornavn as string,",
+				"          etternavn as string,",
+				"          epost as string,",
+				"          stillingstittel as string,",
+				"          stillingsprosent as string,",
+				"          ansatt_dato as string,",
+				"          slutt_dato as string,",
+				"          naermeste_leder_id as string,",
+				"          opprettet_tid as string,",
+				"          endret_tid as string,",
+				"          endret_av as string,",
+				"          load_ts as timestamp,",
+				"          source_file as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> STGansatt"
+			]
+		}
+	}
+}
