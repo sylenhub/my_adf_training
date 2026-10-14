@@ -1,5 +1,5 @@
 {
-	"name": "ansatt",
+	"name": "ds_ansatt",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase_msy01",
