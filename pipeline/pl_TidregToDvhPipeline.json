@@ -1,5 +1,5 @@
 {
-	"name": "TidregToDvhPipeline",
+	"name": "pl_TidregToDvhPipeline",
 	"properties": {
 		"activities": [
 			{
