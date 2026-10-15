@@ -26,7 +26,8 @@
 			],
 			"transformations": [
 				{
-					"name": "EXP01"
+					"name": "EXP01",
+					"description": "test"
 				}
 			],
 			"scriptLines": [
