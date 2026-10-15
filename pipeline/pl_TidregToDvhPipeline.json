@@ -25,6 +25,37 @@
 					},
 					"traceLevel": "Fine"
 				}
+			},
+			{
+				"name": "df_dvh_ansatt",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "df_dvh_aktivitet",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "df_dvh_ansatt",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
 			}
 		],
 		"folder": {
