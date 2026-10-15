@@ -27,7 +27,7 @@
 			"transformations": [
 				{
 					"name": "EXP01",
-					"description": "test"
+					"description": "Konvertering av felter til riktig type"
 				}
 			],
 			"scriptLines": [
