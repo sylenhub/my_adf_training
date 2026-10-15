@@ -26,7 +26,7 @@
 			],
 			"transformations": [
 				{
-					"name": "derivedColumn1"
+					"name": "EXP01"
 				}
 			],
 			"scriptLines": [
@@ -57,8 +57,8 @@
 				"          naermeste_leder_id = toInteger(naermeste_leder_id),",
 				"          opprettet_tid = toTimestamp(opprettet_tid, 'YYYY-MM-DD HH:MM:SS'),",
 				"          endret_tid = toTimestamp(endret_tid, 'YYYY-MM-DD HH:MM:SS'),",
-				"          load_ts = ERROR_FUNCTION('toTimestamp(opprettet_tid, __SINGLE_QUOTE__YYYY-MM-DD HH:MM:SS__SINGLE_QUOTE__)load_ts')) ~> derivedColumn1",
-				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"          load_ts = toTimestamp(opprettet_tid, 'YYYY-MM-DD HH:MM:SS')load_ts) ~> EXP01",
+				"EXP01 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          ansatt_id as integer,",
