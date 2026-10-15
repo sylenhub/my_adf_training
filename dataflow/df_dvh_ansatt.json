@@ -51,7 +51,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> STGansatt",
-				"STGansatt derive() ~> derivedColumn1",
+				"STGansatt derive(ansatt_id = toInteger(ansatt_id)) ~> derivedColumn1",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
