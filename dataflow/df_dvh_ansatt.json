@@ -84,7 +84,23 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> DVHansatt"
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          ansatt_id,",
+				"          ansattnr,",
+				"          fornavn,",
+				"          etternavn,",
+				"          epost,",
+				"          stillingstittel,",
+				"          ansatt_dato,",
+				"          slutt_dato,",
+				"          naermeste_leder_id,",
+				"          opprettet_tid,",
+				"          endret_tid,",
+				"          endret_av,",
+				"          stg_load_ts = load_ts,",
+				"          source_file",
+				"     )) ~> DVHansatt"
 			]
 		}
 	}
