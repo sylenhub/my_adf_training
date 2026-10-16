@@ -297,64 +297,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ds_aktivitet')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase_msy01",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "tidreg/Tidreg_files"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "aktivitet_id",
-						"type": "nvarchar"
-					},
-					{
-						"name": "prosjekt_id",
-						"type": "nvarchar"
-					},
-					{
-						"name": "aktivitetskode",
-						"type": "nvarchar"
-					},
-					{
-						"name": "aktivitetsnavn",
-						"type": "nvarchar"
-					},
-					{
-						"name": "aktiv",
-						"type": "nvarchar"
-					},
-					{
-						"name": "opprettet_tid",
-						"type": "nvarchar"
-					},
-					{
-						"name": "load_ts",
-						"type": "datetime2",
-						"scale": 0
-					},
-					{
-						"name": "source_file",
-						"type": "nvarchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "stg",
-					"table": "aktivitet"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_msy01')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/ds_ansatt')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -668,6 +610,64 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_aktiviet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase_msy01",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "tidreg/Source"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "aktivitet_id",
+						"type": "nvarchar"
+					},
+					{
+						"name": "prosjekt_id",
+						"type": "nvarchar"
+					},
+					{
+						"name": "aktivitetskode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "aktivitetsnavn",
+						"type": "nvarchar"
+					},
+					{
+						"name": "aktiv",
+						"type": "nvarchar"
+					},
+					{
+						"name": "opprettet_tid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "load_ts",
+						"type": "datetime2",
+						"scale": 0
+					},
+					{
+						"name": "source_file",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "stg",
+					"table": "aktivitet"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_msy01')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pl_load_tidreg_stg')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -853,7 +853,7 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "ds_aktivitet",
+								"referenceName": "ds_aktiviet",
 								"type": "DatasetReference"
 							},
 							"name": "STGaktivitet"
@@ -918,7 +918,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_aktivitet')]",
+				"[concat(variables('factoryId'), '/datasets/ds_aktiviet')]",
 				"[concat(variables('factoryId'), '/datasets/Aktivitet')]"
 			]
 		}
