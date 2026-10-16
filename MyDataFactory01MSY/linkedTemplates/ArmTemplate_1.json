@@ -1,0 +1,418 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "MyDataFactory01MSY"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/df_dvh_ansatt')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"folder": {
+					"name": "tidreg"
+				},
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_ansatt",
+								"type": "DatasetReference"
+							},
+							"name": "STGansatt"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "Ansatt",
+								"type": "DatasetReference"
+							},
+							"name": "DVHansatt"
+						}
+					],
+					"transformations": [
+						{
+							"name": "EXP01",
+							"description": "Konvertering av felter til riktig type"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          ansatt_id as string,",
+						"          ansattnr as string,",
+						"          fornavn as string,",
+						"          etternavn as string,",
+						"          epost as string,",
+						"          stillingstittel as string,",
+						"          stillingsprosent as string,",
+						"          ansatt_dato as string,",
+						"          slutt_dato as string,",
+						"          naermeste_leder_id as string,",
+						"          opprettet_tid as string,",
+						"          endret_tid as string,",
+						"          endret_av as string,",
+						"          load_ts as timestamp,",
+						"          source_file as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> STGansatt",
+						"STGansatt derive(ansatt_id = toInteger(ansatt_id),",
+						"          ansatt_dato = toDate(ansatt_dato, 'yyyy-mm-dd'),",
+						"          slutt_dato = toDate(slutt_dato, 'yyyy-mm-dd'),",
+						"          naermeste_leder_id = toInteger(naermeste_leder_id),",
+						"          opprettet_tid = toTimestamp(opprettet_tid, 'YYYY-MM-DD HH:MM:SS'),",
+						"          endret_tid = toTimestamp(endret_tid, 'YYYY-MM-DD HH:MM:SS')) ~> EXP01",
+						"EXP01 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          ansatt_id as integer,",
+						"          ansattnr as string,",
+						"          fornavn as string,",
+						"          etternavn as string,",
+						"          epost as string,",
+						"          stillingstittel as string,",
+						"          stillingsprosent as decimal(5,2),",
+						"          ansatt_dato as date,",
+						"          slutt_dato as date,",
+						"          naermeste_leder_id as integer,",
+						"          opprettet_tid as timestamp,",
+						"          endret_tid as timestamp,",
+						"          endret_av as string,",
+						"          stg_load_ts as timestamp,",
+						"          source_file as string,",
+						"          dvh_load_ts as timestamp",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          ansatt_id,",
+						"          ansattnr,",
+						"          fornavn,",
+						"          etternavn,",
+						"          epost,",
+						"          stillingstittel,",
+						"          ansatt_dato,",
+						"          slutt_dato,",
+						"          naermeste_leder_id,",
+						"          opprettet_tid,",
+						"          endret_tid,",
+						"          endret_av,",
+						"          stg_load_ts = load_ts,",
+						"          source_file",
+						"     )) ~> DVHansatt"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/df_kunde_ordre_join')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "Kunde",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						},
+						{
+							"dataset": {
+								"referenceName": "ordre",
+								"type": "DatasetReference"
+							},
+							"name": "source2"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "kunde_ordre",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "join1"
+						},
+						{
+							"name": "filterX"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          kunde_id as integer,",
+						"          navn as string,",
+						"          epost as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> source1",
+						"source(output(",
+						"          ordre_id as integer,",
+						"          kunde_id as integer,",
+						"          dato as date,",
+						"          belop as decimal(10,2)",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> source2",
+						"filterX, source2 join(source1@kunde_id == source2@kunde_id,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join1",
+						"source1 filter(1 == 1) ~> filterX",
+						"join1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          kunde_id = source1@kunde_id,",
+						"          ordre_id",
+						"     )) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tulleflow01')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"linkedService": {
+								"referenceName": "MSYStorageAccount01",
+								"type": "LinkedServiceReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "nonsensedata",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "select1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          nr as short,",
+						"          tekst1 as string,",
+						"          tekst2 as string",
+						"     ),",
+						"     useSchema: false,",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'delimited',",
+						"     container: 'adftutorialmsy02',",
+						"     folderPath: 'input',",
+						"     fileName: 'testfil_01.csv',",
+						"     columnDelimiter: ';',",
+						"     escapeChar: '\\\\',",
+						"     quoteChar: '\\\"',",
+						"     columnNamesAsHeader: true) ~> source1",
+						"source1 select(skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select1",
+						"select1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          id as decimal(18,0),",
+						"          tekst1 as string,",
+						"          tekst2 as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          id = nr,",
+						"          tekst1,",
+						"          tekst2",
+						"     )) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/nonsensepipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "tulleflow01",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "tulleflow01",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"source1": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/tulleflow01')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_TidregToDvhPipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "df_dvh_aktivitet",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "df_dvh_aktivitet",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"STGaktivitet": {},
+									"DVHaktivitet": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					},
+					{
+						"name": "df_dvh_ansatt",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "df_dvh_aktivitet",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "df_dvh_ansatt",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"STGansatt": {},
+									"DVHansatt": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "tidreg"
+				},
+				"annotations": [],
+				"lastPublishTime": "2026-09-03T17:37:25Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/df_dvh_ansatt')]"
+			]
+		}
+	]
+}
