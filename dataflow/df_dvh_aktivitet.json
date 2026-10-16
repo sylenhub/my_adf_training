@@ -9,6 +9,10 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"dataset": {
+						"referenceName": "ds_aktiviet",
+						"type": "DatasetReference"
+					},
 					"name": "STGaktivitet"
 				}
 			],
@@ -39,7 +43,9 @@
 				"          source_file as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> STGaktivitet",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> STGaktivitet",
 				"STGaktivitet derive(aktivitetsnavn = upper(aktivitetsnavn),",
 				"          aktivitet_id = toInteger(aktivitet_id),",
 				"          prosjekt_id = toInteger(prosjekt_id),",
